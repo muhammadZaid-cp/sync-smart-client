@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 
-export default function CustomInput({ type, placeholder, onChange }) {
+export default function CustomInput({ type, placeholder, onChange, disable }) {
   const handleChange = (e) => {
     onChange(e.target.value);
   };
@@ -9,6 +9,7 @@ export default function CustomInput({ type, placeholder, onChange }) {
     <>
       {type !== "password" ? (
         <Input
+          disabled={disable}
           onChange={handleChange}
           type={type}
           placeholder={placeholder}

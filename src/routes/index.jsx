@@ -12,6 +12,8 @@ import Settings from "../components/dashboard/operations/settings";
 import DeleteOperation from "../components/dashboard/operations/delete";
 import Profile from "../components/dashboard/profile";
 import Password from "../components/dashboard/profile/password";
+import KnowledgeBase from "../components/dashboard/operations/knowledgeBase";
+import Tokens from "../components/dashboard/profile/tokens";
 
 export const AppRoutes = () => {
   return (
@@ -26,11 +28,21 @@ export const AppRoutes = () => {
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/customize" element={<CustomizeAssistant />} />
             <Route path="/" element={<LayoutWrapper />}>
-              <Route index path="/operations/addtoslack" element={<Operations />} />
+              <Route
+                index
+                path="/operations/addtoslack"
+                element={<Operations />}
+              />
+              <Route
+                index
+                path="/operations/knowledge_base"
+                element={<KnowledgeBase />}
+              />
               <Route path="/operations/settings" element={<Settings />} />
               <Route path="/operations/delete" element={<DeleteOperation />} />
               <Route path="/account/profile" element={<Profile />} />
               <Route path="/account/password" element={<Password />} />
+              <Route path="/account/token" element={<Tokens />} />
             </Route>
           </Route>
         </Routes>

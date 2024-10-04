@@ -4,14 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 import Btn from "../components/uiComponents/Btn";
 import CenteredCard from "../components/uiComponents/centeredCard";
 import CustomInput from "../components/uiComponents/InputField";
+import { addTokens } from "../api/token";
 
 function OnBoarding() {
   const navigate = useNavigate();
   const [apiLoading, setApiLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const handleContinue = () => {
-    console.log("continue");
+  const handleContinue = async (values) => {
+    try {
+      setApiLoading(true);
+      const { slackToken, slackRefreshToken } = values;
+      const res = await addTokens({ slackToken, slackRefreshToken });
+      if (res.message === "Tokens saved successfully") {
+        navigate("/home");
+      }
+    } catch (error) {
+      form.resetFields();
+    } finally {
+      setApiLoading(false);
+    }
   };
 
   return (
@@ -41,7 +53,7 @@ function OnBoarding() {
             className="w-full"
           >
             <Form.Item
-              name="accessToken"
+              name="slackToken"
               label="Slack App Configuration Token"
               rules={[
                 {
@@ -56,7 +68,7 @@ function OnBoarding() {
               />
             </Form.Item>
             <Form.Item
-              name="refreshToken"
+              name="slackRefreshToken"
               label="Slack App Configuration Refresh Token"
               rules={[
                 {
@@ -76,7 +88,6 @@ function OnBoarding() {
                 color="primary"
                 text="Continue"
                 isLoading={apiLoading}
-                disabled={true}
               />
             </Form.Item>
           </Form>

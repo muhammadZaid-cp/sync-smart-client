@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Btn from "../../components/uiComponents/Btn";
 import CommonFields from "../../components/commonFields";
 import CenteredCard from "../../components/uiComponents/centeredCard";
+import { loginUser } from "../../api/auth";
 
 function Signin() {
   const navigate = useNavigate();
@@ -15,14 +16,14 @@ function Signin() {
     try {
       setApiLoading(true);
       const { name, email, password } = values;
-      //   const res = await signupUser({ name, email, password });
-      let accessToken = true;
-      if (accessToken) {
-        // localStorage.setItem("token", res.accessToken);
-        navigate("/dashboard");
-        //   localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      const res = await loginUser({ name, email, password });
+      if (res.token) {
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", JSON.stringify(res.user));
+        navigate("/home");
       }
     } catch (error) {
+      console.log(error);
       form.resetFields();
       messageApi.error(
         error?.response?.data?.message || "Invalid Email or Password",
@@ -34,6 +35,7 @@ function Signin() {
 
   return (
     <CenteredCard className="w-[355px]">
+      {contextHolder}
       <Link to="/">
         <img src="/assets/svgs/logo2.svg" />
       </Link>

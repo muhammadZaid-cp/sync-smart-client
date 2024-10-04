@@ -10,7 +10,7 @@ function AddToSlackCard({ title, description, text, isSlack }) {
       </div>
 
       <Link
-        to={text === 'Configure' ? '/operations/addtoslack' : '/auth/signin'}
+        to={text === "Configure" ? "/operations/addtoslack" : "/auth/signin"}
         className="flex items-center justify-center text-primary font-semibold border-t-2 mt-2 pt-3"
       >
         {isSlack ? (

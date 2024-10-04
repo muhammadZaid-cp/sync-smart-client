@@ -5,6 +5,7 @@ import Btn from "../../components/uiComponents/Btn";
 import CustomInput from "../../components/uiComponents/InputField";
 import CenteredCard from "../../components/uiComponents/centeredCard";
 import CommonFields from "../../components/commonFields";
+import { signupUser } from "../../api/auth";
 
 function Signup() {
   const navigate = useNavigate();
@@ -12,21 +13,20 @@ function Signup() {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
 
-  const handleLogin = async (values) => {
+  const handleSignup = async (values) => {
     try {
       setApiLoading(true);
-      const { email, password } = values;
-      //   const res = await loginUser({ email, password });
-      let accessToken = true;
-      if (accessToken) {
-        // localStorage.setItem("token", res.accessToken);
-        navigate("/dashboard");
-        //   localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      const { email, password, name } = values;
+      const res = await signupUser({ email, password, name });
+      if (res.token) {
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", JSON.stringify(res.user));
+        navigate("/onboarding");
       }
     } catch (error) {
       form.resetFields();
       messageApi.error(
-        error?.response?.data?.message || "Invalid Email or Password",
+        error?.response?.data?.message || "Something went wrong",
       );
     } finally {
       setApiLoading(false);
@@ -35,12 +35,13 @@ function Signup() {
 
   return (
     <CenteredCard className="w-[355px]">
+      {contextHolder}
       <Link to="/">
         <img src="/assets/svgs/logo2.svg" />
       </Link>
       <h3 className="font-bold mt-1 mb-8">Sign Up</h3>
 
-      <Form form={form} onFinish={handleLogin} className="w-full">
+      <Form form={form} onFinish={handleSignup} className="w-full">
         <Form.Item
           name="name"
           rules={[
