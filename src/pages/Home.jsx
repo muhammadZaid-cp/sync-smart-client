@@ -13,6 +13,7 @@ function Home({ auth }) {
           <div className="grid grid-cols-4 flex flex-wrap gap-y-6 mt-4 mb-4">
             {CUSTOMRECRUITERS.map((assistant) => (
               <AddToSlackCard
+              key={assistant.title}
                 isSlack={false}
                 text="Configure"
                 title={assistant.title}
@@ -23,10 +24,11 @@ function Home({ auth }) {
           <h1 className="md:text-3xl text-2xl font-bold pt-10 ">
             Pre-Built AI Assistants Library
           </h1>
-          <div className="grid grid-cols-4 flex flex-wrap gap-y-6 px-10  mt-8 pb-10 mb-10">
+          <div className="grid grid-cols-4 flex flex-wrap gap-y-6 md:px-10 px-0  mt-8 pb-10 mb-10">
             {BUILTINASSISTANTS.map((assistant) => (
               <AddToSlackCard
                 isSlack={true}
+                key={assistant.title}
                 text="Add to Slack"
                 title={assistant.title}
                 description={assistant.description}

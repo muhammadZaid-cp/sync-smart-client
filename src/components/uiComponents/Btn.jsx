@@ -29,7 +29,7 @@ export default function Btn({ isLoading, text, type, disabled, showIcon }) {
           ></path>
         </svg>
       ) : showIcon ? (
-        <img src="/assets/icons/slack.svg" className="mr-2" />
+        <img src="/assets/icons/color-slack-icon.svg" className="mr-2" />
       ) : (
         ""
       )}

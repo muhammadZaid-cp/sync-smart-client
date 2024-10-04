@@ -6,7 +6,7 @@ export default function SiderbarLinks({ info }) {
   const pathname = location.pathname;
 
   const isActive = (path) => {
-    return pathname === path;
+    return  pathname.includes(path) ;
   };
 
   return (
@@ -16,11 +16,11 @@ export default function SiderbarLinks({ info }) {
       aria-label={`redirect to ${info.title}`}
     >
       <div
-        className={`relative flex flex-row px-3 py-3  items-center leading-tight rounded-md items-center leading-tight text-primary  hover:border-primary transition ${isActive(info.redirectTo) ? "active shadow-md border-primary bg-white " : "text-primary"} `}
+        className={`relative flex flex-row px-3 py-2  items-center leading-tight rounded-md items-center leading-tight text-primary  hover:border-primary transition ${isActive(info.redirectTo) ? "active shadow-md border-primary bg-white " : "text-primary"} `}
       >
         <div className="group relative flex items-center">
           {info?.svg &&
-          info?.redirectTo === "/operations" &&
+          info?.redirectTo.includes("addtoslack") &&
           isActive(info?.redirectTo) ? (
             <img src="/assets/icons/color-slack-icon.svg" />
           ) : (

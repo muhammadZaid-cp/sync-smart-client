@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Btn from "../components/uiComponents/Btn";
 import CenteredCard from "../components/uiComponents/centeredCard";
 import CustomInput from "../components/uiComponents/InputField";

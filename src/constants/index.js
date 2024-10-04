@@ -121,7 +121,7 @@ export const SIDEBARLINKS = {
   operations: [
     {
       title: "Add to Slack",
-      redirectTo: "/operations",
+      redirectTo: "/operations/addtoslack",
       svg: "/assets/icons/slack.svg",
     },
     {

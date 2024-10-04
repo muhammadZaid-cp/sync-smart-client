@@ -11,7 +11,7 @@ function Header({ authenticated }) {
 
   const items = [
     {
-      label: <Link to="/account">Account</Link>,
+      label: <Link to="/account/profile">Account</Link>,
       key: "0",
     },
     {

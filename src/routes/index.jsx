@@ -26,7 +26,7 @@ export const AppRoutes = () => {
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/customize" element={<CustomizeAssistant />} />
             <Route path="/" element={<LayoutWrapper />}>
-              <Route path="/operations" element={<Operations />} />
+              <Route index path="/operations/addtoslack" element={<Operations />} />
               <Route path="/operations/settings" element={<Settings />} />
               <Route path="/operations/delete" element={<DeleteOperation />} />
               <Route path="/account/profile" element={<Profile />} />

@@ -5,7 +5,7 @@ import SidebarMenu from "../sidebar/SidebarMenu";
 import { Drawer } from "antd";
 
 export default function LayoutWrapper() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handletoggle = () => {
     setIsOpen((prev) => !prev);
@@ -16,7 +16,7 @@ export default function LayoutWrapper() {
       <Header authenticated={true} />
       <main className="flex pt-10 mt-4 lg:w-[85%] md:w-[90%] mx-auto px-4">
         <Drawer
-          classNames="md:hidden block bg-customgray-2 "
+          classNames="md:hidden block bg-customgray-2 overflow-hidden"
           onClose={() => {
             setIsOpen(false);
           }}
@@ -27,11 +27,11 @@ export default function LayoutWrapper() {
           <SidebarMenu isOpen={isOpen} setIsOpen={setIsOpen} />
         </Drawer>
         <SidebarMenu className="md:block hidden" />
-        <button onClick={handletoggle} className="md:hidden block pt-10">
+        <button onClick={handletoggle} className="md:hidden block absolute top-[6rem]">
           <img src="/assets/icons/toggle-btn.svg" alt="toggle btn" />
         </button>
 
-        <div className="h-full overflow-scroll px-6 pt-10 pb-[6rem]">
+        <div className="h-full w-full overflow-scroll px-6 pt-[6rem]">
           <Outlet />
         </div>
       </main>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SIDEBARLINKS } from "../../constants";
 import SiderbarLinks from "./sidebarLinks";
 
@@ -13,17 +13,19 @@ function SidebarMenu({ className }) {
 
   return (
     <div
-      className={`sticky top-0 h-screen z-[200] sidebar bg-customgray-2 ${className} w-[260px]`}
-      style={{ maxHeight: "calc(100vh)" }}
+      className={`sticky top-0 h-full overflow-hidden z-[200] bg-customgray-2 ${className} w-[260px]`}
     >
-      <div className="flex items-center justify-between pt-10 px-4">
-        <img src="/assets/icons/arrow_back.svg" />
-        <h3 className="text-3xl font-bold mx-2">Operations</h3>
+      <div className="flex items-center pt-10 px-2">
+        <Link to="/home"><img src="/assets/icons/arrow_back.svg" /></Link>
+        {path.includes("operations") ? 
+        <>
+        <h3 className="text-2xl font-semibold mx-2">Operations</h3>
         <img src="/assets/icons/open_in_new.svg" />
+        </> : <h3 className="text-2xl font-semibold mx-2">Account</h3>
+        }
       </div>
       <div
-        className={`sidebar-inner flex flex-shrink-0 flex-col h-screen justify-between px-0 py-2 text-base  text-carbon-800 font-medium `}
-        style={{ maxHeight: "calc(100vh - 20px)" }}
+        className={`sidebar-inner flex flex-shrink-0 flex-col h-full justify-between px-0 py-2 text-base  text-carbon-800 font-medium `}
       >
         <div className="flex flex-col">
           {sidebarItems.map((linkData) => (
