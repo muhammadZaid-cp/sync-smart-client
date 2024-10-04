@@ -73,6 +73,13 @@ export const ASSISTANTDATA = [
   },
 ];
 
+export const KNOWLEDGEBASEDATA = [
+  {
+    name: "Test",
+    type: "text",
+  },
+];
+
 export const BUILTINASSISTANTS = [
   {
     title: "Recruiter",
@@ -117,12 +124,21 @@ export const SIDEBARLINKS = {
       title: "Password",
       redirectTo: "/account/password",
     },
+    {
+      title: "Tokens",
+      redirectTo: "/account/token",
+    },
   ],
   operations: [
     {
       title: "Add to Slack",
       redirectTo: "/operations/addtoslack",
       svg: "/assets/icons/slack.svg",
+    },
+    {
+      title: "Knowledge Base",
+      redirectTo: "/operations/knowledge_base",
+      svg: "/assets/icons/database.svg",
     },
     {
       title: "Settings",

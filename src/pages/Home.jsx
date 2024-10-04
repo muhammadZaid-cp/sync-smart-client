@@ -13,7 +13,7 @@ function Home({ auth }) {
           <div className="grid grid-cols-4 flex flex-wrap gap-y-6 mt-4 mb-4">
             {CUSTOMRECRUITERS.map((assistant) => (
               <AddToSlackCard
-              key={assistant.title}
+                key={assistant.title}
                 isSlack={false}
                 text="Configure"
                 title={assistant.title}

@@ -6,7 +6,7 @@ export default function SiderbarLinks({ info }) {
   const pathname = location.pathname;
 
   const isActive = (path) => {
-    return  pathname.includes(path) ;
+    return pathname.includes(path);
   };
 
   return (
