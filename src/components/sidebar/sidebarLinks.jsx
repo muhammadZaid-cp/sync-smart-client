@@ -20,8 +20,8 @@ export default function SiderbarLinks({ info }) {
       >
         <div className="group relative flex items-center">
           {info?.svg &&
-          info?.redirectTo.includes("addtoslack") &&
-          isActive(info?.redirectTo) ? (
+            info?.redirectTo.includes("addtoslack") &&
+            isActive(info?.redirectTo) ? (
             <img src="/assets/icons/color-slack-icon.svg" />
           ) : (
             <img src={info?.svg} />

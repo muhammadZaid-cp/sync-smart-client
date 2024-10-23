@@ -2,14 +2,29 @@ import { Form, message } from "antd";
 import React, { useState } from "react";
 import CustomInput from "../../uiComponents/InputField";
 import Btn from "../../uiComponents/Btn";
+import { updateUser } from "../../../api/auth";
 
 function Profile() {
+  const user = JSON.parse(localStorage.getItem("user"));
   const [apiLoading, setApiLoading] = useState();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleContinue = async (values) => {
-    console.log(values);
+    try {
+      setApiLoading(true);
+      const { name } = values;
+      const res = await updateUser({ name });
+      if (res.message === "user updated successfully") {
+        user.name = res.user.name
+        localStorage.setItem('user', JSON.stringify(user))
+        messageApi.success("User updated successfully")
+      }
+    } catch (error) {
+      form.resetFields();
+    } finally {
+      setApiLoading(false);
+    }
   };
   return (
     <div>
@@ -22,6 +37,7 @@ function Profile() {
           form={form}
           layout="vertical"
           onFinish={handleContinue}
+          initialValues={user}
           className="w-full"
         >
           <Form.Item
@@ -34,22 +50,16 @@ function Profile() {
               },
             ]}
           >
-            <CustomInput type="text" placeholder="John Doe" />
+            <CustomInput name="name" type="text" placeholder="John Doe" />
           </Form.Item>
           <Form.Item
             name="email"
             label="Email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Email.!",
-              },
-            ]}
           >
             <CustomInput
               disable={true}
               type="email"
-              placeholder="Email@company.com"
+              placeholder={`${user.email}`}
             />
           </Form.Item>
 

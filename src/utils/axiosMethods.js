@@ -39,21 +39,37 @@ instance.interceptors.response.use(
 );
 
 export const axiosGet = async ({ path }) => {
-  const res = await instance.get(path);
-  return res;
+  try {
+    const res = await instance.get(path);
+    return res;
+  } catch (err) {
+    throw err
+  }
 };
 
 export const axiosPost = async ({ path, payload }) => {
-  const res = await instance.post(path, payload);
-  return res;
+  try {
+    const res = await instance.post(path, payload);
+    return res;
+  } catch (err) {
+    throw err
+  }
 };
 
 export const axiosPatch = async ({ path, payload }) => {
-  const res = await instance.patch(path, payload);
-  return res;
+  try {
+    const res = await instance.patch(path, payload);
+    return res;
+  } catch (err) {
+    throw err
+  }
 };
 
 export const axiosDelete = async ({ path }) => {
-  const res = await instance.delete(path);
-  return res;
+  try {
+    const res = await instance.delete(path);
+    return res;
+  } catch (err) {
+    throw err
+  }
 };

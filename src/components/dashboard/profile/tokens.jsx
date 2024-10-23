@@ -1,8 +1,8 @@
 import { Form, message } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../../uiComponents/InputField";
 import Btn from "../../uiComponents/Btn";
-import { updateTokens } from "../../../api/token";
+import { getTokens, updateTokens } from "../../../api/token";
 import { useNavigate } from "react-router-dom";
 
 function Tokens() {
@@ -10,12 +10,28 @@ function Tokens() {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    const fetchTokens = async () => {
+      const res = await getTokens()
+      form.setFieldsValue({
+        slackToken: res.data.slackToken,
+        slackRefreshToken: res.data.slackRefreshToken,
+      })
+    }
+    fetchTokens()
+  }, [])
+
+  const handleClick = () => {
+    window.open("https://slack.com/api/apps", "_blank");
+  };
+
   const handleContinue = async (values) => {
     try {
       setApiLoading(true);
       const { slackToken, slackRefreshToken } = values;
       const res = await updateTokens({ slackToken, slackRefreshToken });
       console.log(res);
+
       if (res.message === "Tokens updated successfully") {
         messageApi.success("Tokens updated successfully");
       }
@@ -51,7 +67,7 @@ function Tokens() {
               },
             ]}
           >
-            <CustomInput type="text" placeholder="XXXXXXXXXXXXXXXXXXXXXXXX" />
+            <CustomInput name="slackToken" type="text" placeholder="XXXXXXXXXXXXXXXXXXXXXXXX" />
           </Form.Item>
           <Form.Item
             name="slackRefreshToken"
@@ -63,9 +79,9 @@ function Tokens() {
               },
             ]}
           >
-            <CustomInput type="text" placeholder="XXXXXXXXXXXXXXXXXXXXXXXX" />
+            <CustomInput name="slackRefreshToken" type="text" placeholder="XXXXXXXXXXXXXXXXXXXXXXXX" />
           </Form.Item>
-          <div className="flex my-8 cursor-pointer">
+          <div className="flex my-8 cursor-pointer" onClick={handleClick}>
             <img src="/assets/icons/open_in_new_blue.svg" />
             <p className="ml-2 text-sm text-[#3E44A3]">
               CLICK HERE TO ISSUE NEW SLACK CONFIGURATION TOKEN

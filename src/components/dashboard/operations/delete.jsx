@@ -1,8 +1,25 @@
 import React from "react";
+import { deleteAssistant } from "../../../api/assistant";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function DeleteOperation() {
+  const navigate = useNavigate()
+  const [messageApi, contextHolder] = message.useMessage();
+  const assistant = JSON.parse(localStorage.getItem("assistant"))
+  const handleDeleteAssistant = () => {
+    deleteAssistant({ id: assistant.id }).then((res) => {
+      if (res.message === "Assistant deleted successfully") {
+        messageApi.success("Assistant deleted successfully")
+        navigate("/home")
+      }
+    }).catch((err) => {
+      console.warn(err)
+    })
+  }
   return (
     <div>
+      {contextHolder}
       <p className="text-[#433E3F] w-full px-4 pb-2 border-b border-[#898384]">
         Delete Assistant
       </p>
@@ -16,7 +33,7 @@ function DeleteOperation() {
             logs.
           </p>
         </div>
-        <button className="p-2 bg-[#AE2929] px-6  text-customgray-2 text-sm rounded-sm mt-4">
+        <button className="p-2 bg-[#AE2929] px-6  text-customgray-2 text-sm rounded-sm mt-4" onClick={handleDeleteAssistant}>
           Yes, delete assistant
         </button>
       </div>

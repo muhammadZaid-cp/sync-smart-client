@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import { Form } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Btn from "../components/uiComponents/Btn";
 import CenteredCard from "../components/uiComponents/centeredCard";
 import CustomInput from "../components/uiComponents/InputField";
+import { getAddToSlackUrl } from "../api/slack";
 
 function CustomizeAssistant() {
-  const navigate = useNavigate();
+
+  const location = useLocation();
   const [apiLoading, setApiLoading] = useState(false);
   const [form] = Form.useForm();
+  const handleContinue = async (values) => {
+    try {
+      const res = await getAddToSlackUrl({ name: values.name, type: location.state })
+      window.location.href = `${res.url}`
 
-  const handleContinue = () => {
-    console.log("continue");
+    } catch (error) {
+      console.warn(error)
+    }
   };
 
   return (

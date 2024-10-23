@@ -4,6 +4,7 @@ import { Dropdown } from "antd";
 
 function Header({ authenticated }) {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -54,7 +55,7 @@ function Header({ authenticated }) {
         >
           <div className="flex items-center pointer-cursor">
             <img src="/assets/icons/user-icon.svg" />
-            <p className="ml-2">John Doe</p>
+            <p className="ml-2">{user.name}</p>
           </div>
         </Dropdown>
       )}

@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function Btn({ isLoading, text, type, disabled, showIcon }) {
+export default function Btn({ isLoading, text, type, disabled, showIcon, ...rest }) {
   return (
     <button
+      {...rest}
       type={type}
       disabled={disabled || isLoading}
       className={`w-full text-customgray-2 border border-1 rounded-sm py-2 flex justify-center items-center  bg-primary ${disabled && "bg-[#A6AADD]"}`}

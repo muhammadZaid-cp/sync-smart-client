@@ -82,27 +82,27 @@ export const KNOWLEDGEBASEDATA = [
 
 export const BUILTINASSISTANTS = [
   {
-    title: "Recruiter",
+    botName: "Recruiter",
     description: "Helps with initial candidate screening and interview process",
   },
   {
-    title: "HR Support",
+    botName: "HR Support",
     description: "Provides assistance with HR related queries.",
   },
   {
-    title: "Exscutive Assistant",
+    botName: "Exscutive Assistant",
     description: "Manage schedule, emails and basic tasks for executive.",
   },
   {
-    title: "Policy Maker",
+    botName: "Policy Maker",
     description: "Assists in making company policies.",
   },
   {
-    title: "Sales",
+    botName: "Sales",
     description: "Assists with leads and initial customer interactions.",
   },
   {
-    title: "Operations",
+    botName: "Operations",
     description: "Helps streamline processes and day to day operational tasks.",
   },
 ];

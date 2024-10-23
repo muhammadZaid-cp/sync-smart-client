@@ -1,17 +1,31 @@
-import { Form } from "antd";
+import { Form, message } from "antd";
 import React, { useState } from "react";
 import CustomInput from "../../uiComponents/InputField";
 import Btn from "../../uiComponents/Btn";
+import { updateUserPassword } from "../../../api/auth";
 
 function Password() {
   const [apiLoading, setApiLoading] = useState();
   const [form] = Form.useForm();
-
-  const handleContinue = () => {
-    console.log("hell");
+  const [messageApi, contextHolder] = message.useMessage();
+  const handleContinue = async (values) => {
+    try {
+      setApiLoading(true);
+      const { oldPassword, newPassword } = values;
+      const res = await updateUserPassword({ oldPassword, newPassword });
+      if (res.message === "password updated successfully") {
+        messageApi.success("Password updated successfully")
+      }
+    } catch (error) {
+      form.resetFields();
+    } finally {
+      setApiLoading(false);
+    }
   };
+
   return (
     <div>
+      {contextHolder}
       <p className="text-[#433E3F] w-full px-4 pb-2 border-b border-[#898384]">
         Profile Information
       </p>
@@ -23,7 +37,7 @@ function Password() {
           className="w-full"
         >
           <Form.Item
-            name="passwordCurrent"
+            name="oldPassword"
             label="Current Password"
             rules={[
               {

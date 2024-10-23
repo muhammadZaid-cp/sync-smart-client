@@ -1,4 +1,14 @@
-import { axiosPatch, axiosPost } from "../../utils/axiosMethods";
+import { axiosGet, axiosPatch, axiosPost } from "../../utils/axiosMethods";
+
+
+export const getTokens = async (payload) => {
+  const res = await axiosGet({
+    path: `slackTokens`,
+    payload,
+  });
+
+  return res;
+};
 
 export const addTokens = async (payload) => {
   const res = await axiosPost({

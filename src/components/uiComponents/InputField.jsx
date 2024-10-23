@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 
-export default function CustomInput({ type, placeholder, onChange, disable }) {
+export default function CustomInput({ type, placeholder, onChange, disable, ...rest }) {
   const handleChange = (e) => {
     onChange(e.target.value);
   };
@@ -14,6 +14,7 @@ export default function CustomInput({ type, placeholder, onChange, disable }) {
           type={type}
           placeholder={placeholder}
           className="w-full px-3 py-2 text-gray-800 bg-white outline-none border border-customgray-1 focus:border-indigo-600 shadow-sm rounded-sm"
+          {...rest}
         />
       ) : (
         <Input.Password
@@ -21,6 +22,7 @@ export default function CustomInput({ type, placeholder, onChange, disable }) {
           type={type}
           placeholder={placeholder}
           className="w-full px-3 py-2 text-gray-800 bg-white outline-none border border-customgray-1 focus:border-indigo-600 shadow-sm rounded-sm"
+          {...rest}
         />
       )}
     </>
