@@ -31,7 +31,6 @@ function Tokens() {
       const { slackToken, slackRefreshToken } = values;
       const res = await updateTokens({ slackToken, slackRefreshToken });
       console.log(res);
-
       if (res.message === "Tokens updated successfully") {
         messageApi.success("Tokens updated successfully");
       }

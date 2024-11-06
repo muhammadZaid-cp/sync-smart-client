@@ -2,14 +2,19 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dropdown } from "antd";
 
+import UserAvatar from "./uiComponents/Avatar";
+
+import { parseData } from "../utils/helpers";
+
 function Header({ authenticated }) {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
   };
+
+  const user = parseData(localStorage.getItem("user"));
 
   const items = [
     {
@@ -54,7 +59,8 @@ function Header({ authenticated }) {
           trigger={["click"]}
         >
           <div className="flex items-center pointer-cursor">
-            <img src="/assets/icons/user-icon.svg" />
+            {/* <img src="/assets/icons/user-icon.svg" /> */}
+            <UserAvatar userName={user.name} />
             <p className="ml-2">{user.name}</p>
           </div>
         </Dropdown>
