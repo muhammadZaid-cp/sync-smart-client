@@ -1,23 +1,25 @@
 import React from "react";
 
+import { getInitialsOfUserName } from "../../utils/helpers";
+
 const UserAvatar = ({ userName }) => {
-  const firstLetter = userName ? userName.charAt(0).toUpperCase() : "?";
+  const name = getInitialsOfUserName({ name: userName });
 
   const avatarStyle = {
-    width: "30px",
-    height: "30px",
+    width: name.length === 1 ? "30px" : "40px",
+    height: name.length === 1 ? "30px" : "35px",
     borderRadius: "50%",
-    backgroundColor: "#4040FF",
+    backgroundColor: "#00008B",
     color: "#FFFFFF",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "24px",
+    fontSize: name.length === 1 ? "24px" : "20px",
     fontWeight: "bold",
     textTransform: "uppercase",
   };
 
-  return <div style={avatarStyle}>{firstLetter}</div>;
+  return <div style={avatarStyle}>{name}</div>;
 };
 
 export default UserAvatar;

@@ -58,8 +58,7 @@ function Header({ authenticated }) {
           }}
           trigger={["click"]}
         >
-          <div className="flex items-center pointer-cursor">
-            {/* <img src="/assets/icons/user-icon.svg" /> */}
+          <div className="flex items-center cursor-pointer hover:bg-gray-200 hover:bg-opacity-50 p-2 rounded">
             <UserAvatar userName={user.name} />
             <p className="ml-2">{user.name}</p>
           </div>
