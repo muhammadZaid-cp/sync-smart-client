@@ -1,0 +1,49 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.9
+      with:
+        host: ${{ secrets.EC2_HOST_FRONTEND }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY_FRONTEND }}
+        script: |
+          # Load NVM (Node Version Manager) automatically.
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          nvm use 20.18.0  # Ensure the correct Node version is in use
+
+          # Navigate to the app directory
+          cd /home/ubuntu/sync-smart-client
+
+          # Pull the latest changes
+          git pull origin main
+
+          # Ensure the directory is writable
+          sudo chown -R $USER:$USER /home/ubuntu/sync-smart-client
+
+          # Install dependencies if package.json exists
+          if [ -f package.json ]; then
+            npm install --omit=dev
+          fi
+
+          echo 'Current directory before pwd:'
+          pwd
+          
+          # Restart your application using pm2
+          pm2 reload syncsmart
+
+          # Restart Nginx
+          sudo systemctl restart nginx
