@@ -2,10 +2,12 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SIDEBARLINKS } from "../../constants";
 import SiderbarLinks from "./sidebarLinks";
+import { parseData } from "../../utils/helpers";
 
 function SidebarMenu({ className }) {
   const location = useLocation();
   const path = location.pathname;
+  const { type } = parseData(localStorage.getItem("assistant"));
 
   const sidebarItems = path.includes("operations")
     ? SIDEBARLINKS.operations
@@ -21,7 +23,7 @@ function SidebarMenu({ className }) {
         </Link>
         {path.includes("operations") ? (
           <>
-            <h3 className="text-2xl font-semibold mx-2">Operations</h3>
+            <h3 className="text-2xl font-semibold mx-2">{type || 'assistant'}</h3>
             <img src="/assets/icons/open_in_new.svg" />
           </>
         ) : (
