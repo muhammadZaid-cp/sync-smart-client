@@ -9,11 +9,12 @@ import { getAddToSlackUrl } from "../api/slack";
 function CustomizeAssistant() {
 
   const location = useLocation();
+  const assistantType = location.state
   const [apiLoading, setApiLoading] = useState(false);
   const [form] = Form.useForm();
   const handleContinue = async (values) => {
     try {
-      const res = await getAddToSlackUrl({ name: values.name, type: location.state })
+      const res = await getAddToSlackUrl({ name: values.name, type: assistantType })
       window.location.href = `${res.url}`
 
     } catch (error) {
@@ -26,7 +27,7 @@ function CustomizeAssistant() {
       <h3 className="text-2xl font-bold mt-4 text-center">
         Customize{" "}
         <span className="bg-gradient-to-r from-[#2DB8D9] to-[#1C1F4A] text-transparent bg-clip-text ">
-          Recruiter
+          {assistantType}
         </span>{" "}
         for your team
       </h3>
@@ -43,6 +44,9 @@ function CustomizeAssistant() {
         layout="vertical"
         onFinish={handleContinue}
         className="w-full mt-4"
+        initialValues={{
+          name: "Sync Smart",
+        }}
       >
         <Form.Item
           name="name"
@@ -54,10 +58,10 @@ function CustomizeAssistant() {
             },
           ]}
         >
-          <CustomInput type="text" placeholder="Recruiter" />
+          <CustomInput disabled type="text" placeholder="Recruiter" />
         </Form.Item>
         <h3 className="font-bold mt-10 self-start">
-          Customize Recruiter to your Slack workspace
+          Customize {assistantType} to your Slack workspace
         </h3>
         <p className="text-xs self-start my-3">
           Once connected, you’ll be able to chat with your Operations directly
